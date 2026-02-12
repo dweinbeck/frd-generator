@@ -8,8 +8,9 @@ export const MODELS = {
 		description: "Fast and cost-effective. Great for most FRD generations.",
 		maxOutputTokens: 8192,
 	},
-	"gemini-3-pro": {
-		id: "gemini-3-pro",
+	// Note: ID may change to "gemini-3-pro" when model reaches GA
+	"gemini-3-pro-preview": {
+		id: "gemini-3-pro-preview",
 		name: "Gemini 3 Pro",
 		description: "Premium model for complex requirements and deeper analysis.",
 		maxOutputTokens: 16384,

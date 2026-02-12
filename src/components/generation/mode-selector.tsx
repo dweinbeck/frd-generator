@@ -25,8 +25,8 @@ const modes = [
 		description: "Guided questions to build a comprehensive FRD",
 		timeEstimate: "~5 minutes",
 		icon: ClipboardList,
-		disabled: true,
-		badge: "Coming Soon" as string | null,
+		disabled: false,
+		badge: null as string | null,
 	},
 ];
 

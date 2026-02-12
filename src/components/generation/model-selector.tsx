@@ -15,7 +15,7 @@ const models = [
 		badge: "Default",
 	},
 	{
-		id: "gemini-3-pro",
+		id: "gemini-3-pro-preview",
 		name: "Gemini 3 Pro",
 		description: "Premium, deeper analysis",
 		badge: "Premium",
