@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import type { GenerationMode, Project } from "@/types";
 import { getDb } from "./admin";
 
+// TODO: Replace userId parameter with authenticated userId from Firebase Auth in Phase 4
 export async function createProject(data: {
 	name: string;
 	mode: GenerationMode;

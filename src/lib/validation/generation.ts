@@ -15,7 +15,10 @@ const GuidedAnswerSchema = z.object({
 export const GenerationRequestSchema = z.object({
 	projectId: z.string().min(1, "Project ID is required"),
 	projectName: z.string().min(1, "Project name is required").max(100),
-	brainDump: z.string().max(15000, "Input exceeds maximum length of 15,000 characters"),
+	brainDump: z
+		.string()
+		.min(50, "Please provide at least 50 characters to generate a meaningful FRD")
+		.max(15000, "Input exceeds maximum length of 15,000 characters"),
 	mode: z.enum(["fast", "standard"]),
 	followUpAnswers: z.array(FollowUpAnswerSchema).optional(),
 	guidedAnswers: z.array(GuidedAnswerSchema).optional(),
