@@ -30,12 +30,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Generated FRD is a well-structured Markdown document with consistent sections (enforced by Gemini structured output), and the system rejects or warns when input exceeds token/prompt size caps
   4. User can copy the FRD Markdown to clipboard with one click and download it as a .md file
   5. The app is mobile responsive with keyboard navigation and form labels, and each generation creates an immutable version record in the data store
-**Plans**: TBD
+**Plans**: 3 plans in 3 waves
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md -- Project bootstrap, tooling configuration, Firestore data layer, and validation schemas
+- [ ] 01-02-PLAN.md -- AI generation engine (FRD schema, prompt composer, Gemini structured output) and API route handlers
+- [ ] 01-03-PLAN.md -- Full UI (project creation, brain dump, generation flow, FRD display, export, responsiveness, accessibility)
 
 ### Phase 2: Dual-Mode Input & Gap Detection
 **Goal**: Users can choose between two input modes -- Fast mode with AI-powered gap detection and targeted follow-ups, or Standard mode with guided Q&A -- and select their preferred Gemini model tier.
