@@ -13,6 +13,8 @@ interface StandardModeFlowProps {
 export function StandardModeFlow({ onSubmit, isSubmitting }: StandardModeFlowProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [answers, setAnswers] = useState<Record<string, string>>({});
+	const [showRequiredWarning, setShowRequiredWarning] = useState(false);
+	const [showMinAnswerWarning, setShowMinAnswerWarning] = useState(false);
 
 	const currentQuestion = STANDARD_MODE_QUESTIONS[currentIndex];
 	const totalQuestions = STANDARD_MODE_QUESTIONS.length;
@@ -20,9 +22,15 @@ export function StandardModeFlow({ onSubmit, isSubmitting }: StandardModeFlowPro
 
 	function handleAnswerChange(value: string) {
 		setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
+		setShowRequiredWarning(false);
 	}
 
 	function handleNext() {
+		if (currentQuestion.required && !answers[currentQuestion.id]?.trim()) {
+			setShowRequiredWarning(true);
+			return;
+		}
+		setShowRequiredWarning(false);
 		if (isLast) {
 			handleFinish();
 		} else {
@@ -31,10 +39,13 @@ export function StandardModeFlow({ onSubmit, isSubmitting }: StandardModeFlowPro
 	}
 
 	function handlePrev() {
+		setShowRequiredWarning(false);
+		setShowMinAnswerWarning(false);
 		setCurrentIndex((prev) => Math.max(0, prev - 1));
 	}
 
 	function handleSkip() {
+		setShowRequiredWarning(false);
 		if (isLast) {
 			handleFinish();
 		} else {
@@ -42,7 +53,7 @@ export function StandardModeFlow({ onSubmit, isSubmitting }: StandardModeFlowPro
 		}
 	}
 
-	function handleFinish() {
+	function collectAnswers(): GuidedAnswer[] {
 		const guidedAnswers: GuidedAnswer[] = [];
 		for (const question of STANDARD_MODE_QUESTIONS) {
 			const answer = answers[question.id]?.trim();
@@ -54,7 +65,21 @@ export function StandardModeFlow({ onSubmit, isSubmitting }: StandardModeFlowPro
 				});
 			}
 		}
-		onSubmit(guidedAnswers);
+		return guidedAnswers;
+	}
+
+	function forceSubmit() {
+		setShowMinAnswerWarning(false);
+		onSubmit(collectAnswers());
+	}
+
+	function handleFinish() {
+		if (answeredCount < 2) {
+			setShowMinAnswerWarning(true);
+			return;
+		}
+		setShowMinAnswerWarning(false);
+		onSubmit(collectAnswers());
 	}
 
 	const answeredCount = Object.values(answers).filter((a) => a?.trim()).length;
@@ -95,7 +120,23 @@ export function StandardModeFlow({ onSubmit, isSubmitting }: StandardModeFlowPro
 					placeholder={currentQuestion.placeholder}
 					className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 resize-y"
 				/>
+				{showRequiredWarning && (
+					<p className="text-sm text-red-500 mt-1">This question is required</p>
+				)}
 			</div>
+
+			{showMinAnswerWarning && (
+				<div className="rounded-lg bg-amber-50 border border-amber-200 p-3 text-sm text-amber-700">
+					For best results, answer at least 2 questions.{" "}
+					<button
+						type="button"
+						onClick={forceSubmit}
+						className="font-semibold underline hover:text-amber-900"
+					>
+						Generate anyway
+					</button>
+				</div>
+			)}
 
 			<div className="flex items-center justify-between">
 				<button
