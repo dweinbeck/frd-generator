@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-11)
 ## Current Position
 
 Phase: 1 of 5 (Foundation & Core Generation)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: Executing
-Last activity: 2026-02-12 -- Completed 01-01-PLAN.md
+Last activity: 2026-02-12 -- Completed 01-02-PLAN.md
 
-Progress: [#.........] 10%
+Progress: [##........] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
+- Total plans completed: 2
 - Average duration: 3min
-- Total execution time: 0.05 hours
+- Total execution time: 0.1 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-core-generation | 1/3 | 3min | 3min |
+| 01-foundation-core-generation | 2/3 | 6min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3min)
-- Trend: -
+- Last 5 plans: 01-01 (3min), 01-02 (3min)
+- Trend: stable
 
 *Updated after each plan completion*
 
@@ -48,6 +48,9 @@ Recent decisions affecting current work:
 - [01-01] Accepted pre-existing scaffolding; verified and aligned with plan requirements
 - [01-01] createProject takes userId as parameter (more flexible than hardcoded anonymous); TODO for Phase 4
 - [01-01] brainDump min(50) validation added to GenerationRequestSchema
+- [01-02] Accepted pre-existing AI engine and API routes; all meet plan requirements
+- [01-02] AI SDK 6 uses maxOutputTokens (not maxTokens); existing code correct
+- [01-02] API routes pre-wired with auth/credits/rate-limiting from later phases; no conflict
 
 ### Pending Todos
 
@@ -60,5 +63,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 01-01-PLAN.md
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
