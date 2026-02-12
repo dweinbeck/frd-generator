@@ -43,22 +43,19 @@ export async function POST(req: Request) {
 		const modelId = input.modelId ?? "gemini-2.5-flash";
 		const isIteration = !!input.parentVersionId;
 
-		// CRED-01/CRED-02: Determine credit cost
-		const creditCost = isIteration ? CREDIT_COSTS.iteration : CREDIT_COSTS.initial;
-
-		// CRED-04: Check and charge credits
-		const chargeResult = await chargeCredits(auth.userId, creditCost, {
-			projectId: input.projectId,
-			model: modelId,
-			reason: isIteration ? "iteration" : "initial_generation",
-		});
-
-		if (!chargeResult.success) {
-			return NextResponse.json(
-				{ error: "Insufficient credits", balance: chargeResult.balance, required: creditCost },
-				{ status: 402 },
-			);
-		}
+		// TODO: Phase 5 — re-enable credit charging
+		// const creditCost = isIteration ? CREDIT_COSTS.iteration : CREDIT_COSTS.initial;
+		// const chargeResult = await chargeCredits(auth.userId, creditCost, {
+		// 	projectId: input.projectId,
+		// 	model: modelId,
+		// 	reason: isIteration ? "iteration" : "initial_generation",
+		// });
+		// if (!chargeResult.success) {
+		// 	return NextResponse.json(
+		// 		{ error: "Insufficient credits", balance: chargeResult.balance, required: creditCost },
+		// 		{ status: 402 },
+		// 	);
+		// }
 
 		// OBS-02: Track generation start
 		trackEvent(
@@ -148,18 +145,18 @@ export async function POST(req: Request) {
 			logger.correlationId,
 		);
 
-		// CRED-06: Track credit charge
-		trackEvent(
-			auth.userId,
-			{
-				event: "credits_charged",
-				amount: creditCost,
-				projectId: input.projectId,
-				versionId: version.id,
-				model: modelId,
-			},
-			logger.correlationId,
-		);
+		// TODO: Phase 5 — re-enable credit tracking
+		// trackEvent(
+		// 	auth.userId,
+		// 	{
+		// 		event: "credits_charged",
+		// 		amount: creditCost,
+		// 		projectId: input.projectId,
+		// 		versionId: version.id,
+		// 		model: modelId,
+		// 	},
+		// 	logger.correlationId,
+		// );
 
 		if (isIteration) {
 			trackEvent(

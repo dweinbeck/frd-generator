@@ -7,9 +7,10 @@ import { verifyAuth } from "./verify-token";
  * Use in API routes: const auth = await requireAuth(req); if (auth instanceof NextResponse) return auth;
  */
 export async function requireAuth(req: Request) {
+	// TODO: Phase 4 — remove anonymous fallback, enforce real auth
 	const auth = await verifyAuth(req);
 	if (!auth) {
-		return NextResponse.json({ error: "Authentication required" }, { status: 401 });
+		return { userId: "anonymous" };
 	}
 	return auth;
 }

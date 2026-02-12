@@ -3,14 +3,15 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ModeSelector } from "@/components/generation/mode-selector";
-import { useAuthedFetch } from "@/hooks/use-authed-fetch";
-import { useAuth } from "@/lib/firebase/auth-context";
+// TODO: Phase 4 — restore authedFetch and useAuth
+// import { useAuthedFetch } from "@/hooks/use-authed-fetch";
+// import { useAuth } from "@/lib/firebase/auth-context";
 import type { GenerationMode } from "@/types";
 
 export default function Home() {
 	const router = useRouter();
-	const { user, loading: authLoading } = useAuth();
-	const authedFetch = useAuthedFetch();
+	// TODO: Phase 4 — restore useAuth and authedFetch
+	const authLoading = false;
 	const [name, setName] = useState("");
 	const [mode, setMode] = useState<GenerationMode>("fast");
 	const [error, setError] = useState("");
@@ -24,10 +25,11 @@ export default function Home() {
 		);
 	}
 
-	if (!user) {
-		router.push("/sign-in");
-		return null;
-	}
+	// TODO: Phase 4 — re-enable auth guard
+	// if (!user) {
+	// 	router.push("/sign-in");
+	// 	return null;
+	// }
 
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
@@ -41,7 +43,7 @@ export default function Home() {
 		setIsCreating(true);
 
 		try {
-			const res = await authedFetch("/api/projects", {
+			const res = await fetch("/api/projects", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ name: name.trim(), mode }),

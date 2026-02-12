@@ -13,8 +13,9 @@ export function useAuthedFetch() {
 	const authedFetch = useCallback(
 		async (url: string, options?: RequestInit): Promise<Response> => {
 			const token = await getIdToken();
+			// TODO: Phase 4 — restore auth requirement, remove anonymous fallback
 			if (!token) {
-				throw new Error("Not authenticated");
+				return fetch(url, options);
 			}
 
 			const headers = new Headers(options?.headers);
