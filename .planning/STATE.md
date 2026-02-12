@@ -5,32 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-02-11)
 
 **Core value:** A user can go from an unstructured idea to a Claude Code-ready FRD in under 10 minutes, with the LLM filling gaps and enforcing completeness.
-**Current focus:** Phase 1 complete — ready for Phase 2
+**Current focus:** Phase 2 in progress — Dual-Mode Input & Gap Detection
 
 ## Current Position
 
-Phase: 1 of 5 (Foundation & Core Generation) — COMPLETE
-Plan: 3 of 3 in current phase
-Status: Phase complete, verified
-Last activity: 2026-02-12 -- Phase 1 verified and complete
+Phase: 2 of 5 (Dual-Mode Input & Gap Detection)
+Plan: 1 of 2 in current phase
+Status: Plan 02-01 complete, ready for 02-02
+Last activity: 2026-02-12 -- Completed 02-01-PLAN.md
 
-Progress: [####......] 20%
+Progress: [####......] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
+- Total plans completed: 4
 - Average duration: 6min
-- Total execution time: 0.3 hours
+- Total execution time: 0.4 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-core-generation | 3/3 | 18min | 6min |
+| 02-dual-mode-input-gap-detection | 1/2 | 4min | 4min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3min), 01-02 (3min), 01-03 (15min)
+- Last 5 plans: 01-01 (3min), 01-02 (3min), 01-03 (15min), 02-01 (4min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -54,6 +55,8 @@ Recent decisions affecting current work:
 - [01-03] Auth bypassed at 3 layers (client guard, fetch hook, server requireAuth) for Phase 1 testing
 - [01-03] Credits bypassed in generate route for Phase 1 testing
 - [01-03] Standard mode disabled with Coming Soon badge — only Fast mode active in Phase 1
+- [02-01] Used .refine() for conditional brainDump validation (safe for API input, not Gemini structured output)
+- [02-01] Minimum-answer warning is non-blocking with escape hatch to preserve user autonomy (STND-02)
 
 ### Pending Todos
 
@@ -66,5 +69,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Phase 1 complete, verified, ready for Phase 2
+Stopped at: Completed 02-01-PLAN.md, ready for 02-02
 Resume file: None
