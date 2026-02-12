@@ -90,7 +90,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 Deferred to future release. Tracked but not in current roadmap.
 
-(None — all identified features included in v1)
+(None -- all identified features included in v1)
 
 ## Out of Scope
 
@@ -116,58 +116,58 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PROJ-01 | TBD | Pending |
-| PROJ-02 | TBD | Pending |
-| FAST-01 | TBD | Pending |
-| FAST-02 | TBD | Pending |
-| FAST-03 | TBD | Pending |
-| FAST-04 | TBD | Pending |
-| FAST-05 | TBD | Pending |
-| STND-01 | TBD | Pending |
-| STND-02 | TBD | Pending |
-| STND-03 | TBD | Pending |
-| GEN-01 | TBD | Pending |
-| GEN-02 | TBD | Pending |
-| GEN-03 | TBD | Pending |
-| GEN-04 | TBD | Pending |
-| GEN-05 | TBD | Pending |
-| GEN-06 | TBD | Pending |
-| EXPT-01 | TBD | Pending |
-| EXPT-02 | TBD | Pending |
-| VER-01 | TBD | Pending |
-| VER-02 | TBD | Pending |
-| VER-03 | TBD | Pending |
-| VER-04 | TBD | Pending |
-| VER-05 | TBD | Pending |
-| VER-06 | TBD | Pending |
-| RATE-01 | TBD | Pending |
-| RATE-02 | TBD | Pending |
-| RATE-03 | TBD | Pending |
-| AUTH-01 | TBD | Pending |
-| AUTH-02 | TBD | Pending |
-| AUTH-03 | TBD | Pending |
-| AUTH-04 | TBD | Pending |
-| AUTH-05 | TBD | Pending |
-| AUTH-06 | TBD | Pending |
-| CRED-01 | TBD | Pending |
-| CRED-02 | TBD | Pending |
-| CRED-03 | TBD | Pending |
-| CRED-04 | TBD | Pending |
-| CRED-05 | TBD | Pending |
-| CRED-06 | TBD | Pending |
-| DATA-01 | TBD | Pending |
-| DATA-02 | TBD | Pending |
-| DATA-03 | TBD | Pending |
-| OBS-01 | TBD | Pending |
-| OBS-02 | TBD | Pending |
-| OBS-03 | TBD | Pending |
-| OBS-04 | TBD | Pending |
+| PROJ-01 | Phase 1 | Pending |
+| PROJ-02 | Phase 1 | Pending |
+| FAST-01 | Phase 1 | Pending |
+| FAST-02 | Phase 2 | Pending |
+| FAST-03 | Phase 2 | Pending |
+| FAST-04 | Phase 2 | Pending |
+| FAST-05 | Phase 2 | Pending |
+| STND-01 | Phase 2 | Pending |
+| STND-02 | Phase 2 | Pending |
+| STND-03 | Phase 2 | Pending |
+| GEN-01 | Phase 1 | Pending |
+| GEN-02 | Phase 1 | Pending |
+| GEN-03 | Phase 2 | Pending |
+| GEN-04 | Phase 1 | Pending |
+| GEN-05 | Phase 1 | Pending |
+| GEN-06 | Phase 1 | Pending |
+| EXPT-01 | Phase 1 | Pending |
+| EXPT-02 | Phase 1 | Pending |
+| VER-01 | Phase 1 | Pending |
+| VER-02 | Phase 3 | Pending |
+| VER-03 | Phase 3 | Pending |
+| VER-04 | Phase 3 | Pending |
+| VER-05 | Phase 3 | Pending |
+| VER-06 | Phase 3 | Pending |
+| RATE-01 | Phase 3 | Pending |
+| RATE-02 | Phase 3 | Pending |
+| RATE-03 | Phase 3 | Pending |
+| AUTH-01 | Phase 4 | Pending |
+| AUTH-02 | Phase 4 | Pending |
+| AUTH-03 | Phase 4 | Pending |
+| AUTH-04 | Phase 3 | Pending |
+| AUTH-05 | Phase 4 | Pending |
+| AUTH-06 | Phase 4 | Pending |
+| CRED-01 | Phase 5 | Pending |
+| CRED-02 | Phase 5 | Pending |
+| CRED-03 | Phase 5 | Pending |
+| CRED-04 | Phase 5 | Pending |
+| CRED-05 | Phase 5 | Pending |
+| CRED-06 | Phase 5 | Pending |
+| DATA-01 | Phase 5 | Pending |
+| DATA-02 | Phase 5 | Pending |
+| DATA-03 | Phase 5 | Pending |
+| OBS-01 | Phase 5 | Pending |
+| OBS-02 | Phase 5 | Pending |
+| OBS-03 | Phase 5 | Pending |
+| OBS-04 | Phase 1 | Pending |
 
 **Coverage:**
-- v1 requirements: 43 total
-- Mapped to phases: 0
-- Unmapped: 43 (pending roadmap creation)
+- v1 requirements: 46 total
+- Mapped to phases: 46
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-11*
-*Last updated: 2026-02-11 after initial definition*
+*Last updated: 2026-02-11 after roadmap creation*
