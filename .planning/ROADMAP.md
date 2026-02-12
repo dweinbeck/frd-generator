@@ -45,12 +45,11 @@ Plans:
   1. After submitting a brain dump, user sees a list of identified gaps (missing FRD sections) with targeted follow-up prompts, can answer or skip each, and the final FRD incorporates both the brain dump and follow-up answers
   2. User can select Standard mode and be guided through a structured sequence of questions covering FRD sections, skipping any question without breaking the flow, and generate an FRD from all collected answers
   3. User can toggle between Gemini 2.5 Flash (default) and Gemini 3 Pro before generation, with the selected model used for that generation
-**Plans**: TBD
+**Plans**: 2 plans in 2 waves
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md -- Fix critical bugs (model ID, validation schema) and enable Standard mode
+- [ ] 02-02-PLAN.md -- TDD tests for validation schemas, standard mode flow, and model selector
 
 ### Phase 3: Versioning, Iteration & Feedback
 **Goal**: Users can iterate on generated FRDs with feedback, browse version history, compare versions, view the exact prompt used, and rate generation quality.
@@ -108,7 +107,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Core Generation | 3/3 | Complete | 2026-02-12 |
-| 2. Dual-Mode Input & Gap Detection | 0/3 | Not started | - |
+| 2. Dual-Mode Input & Gap Detection | 0/2 | Not started | - |
 | 3. Versioning, Iteration & Feedback | 0/2 | Not started | - |
 | 4. Authentication & Privacy | 0/2 | Not started | - |
 | 5. Monetization, Compliance & Production Readiness | 0/3 | Not started | - |
