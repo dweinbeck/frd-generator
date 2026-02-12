@@ -17,6 +17,7 @@ const modes = [
 		timeEstimate: "~10 seconds",
 		icon: Zap,
 		disabled: false,
+		badge: null as string | null,
 	},
 	{
 		id: "standard" as const,
@@ -24,13 +25,14 @@ const modes = [
 		description: "Guided questions to build a comprehensive FRD",
 		timeEstimate: "~5 minutes",
 		icon: ClipboardList,
-		disabled: false,
+		disabled: true,
+		badge: "Coming Soon" as string | null,
 	},
 ];
 
 export function ModeSelector({ value, onChange }: ModeSelectorProps) {
 	return (
-		<div className="grid gap-3 sm:grid-cols-2">
+		<div className="grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="Generation mode">
 			{modes.map((mode) => {
 				const Icon = mode.icon;
 				const isSelected = value === mode.id;
@@ -54,10 +56,16 @@ export function ModeSelector({ value, onChange }: ModeSelectorProps) {
 							disabled={mode.disabled}
 							onChange={() => onChange(mode.id)}
 							className="sr-only"
+							aria-label={mode.name}
 						/>
 						<div className="flex items-center gap-2">
 							<Icon className={clsx("h-5 w-5", isSelected ? "text-primary" : "text-gray-400")} />
 							<span className="font-semibold text-gray-900">{mode.name}</span>
+							{mode.badge && (
+								<span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500">
+									{mode.badge}
+								</span>
+							)}
 						</div>
 						<p className="text-sm text-gray-600">{mode.description}</p>
 						<p className="text-xs text-gray-400">{mode.timeEstimate}</p>
