@@ -5,32 +5,32 @@
 See: .planning/PROJECT.md (updated 2026-02-11)
 
 **Core value:** A user can go from an unstructured idea to a Claude Code-ready FRD in under 10 minutes, with the LLM filling gaps and enforcing completeness.
-**Current focus:** Phase 1 - Foundation & Core Generation
+**Current focus:** Phase 1 complete — ready for Phase 2
 
 ## Current Position
 
-Phase: 1 of 5 (Foundation & Core Generation)
-Plan: 2 of 3 in current phase
-Status: Executing
-Last activity: 2026-02-12 -- Completed 01-02-PLAN.md
+Phase: 1 of 5 (Foundation & Core Generation) — COMPLETE
+Plan: 3 of 3 in current phase
+Status: Phase complete, verified
+Last activity: 2026-02-12 -- Phase 1 verified and complete
 
-Progress: [##........] 20%
+Progress: [####......] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 3min
-- Total execution time: 0.1 hours
+- Total plans completed: 3
+- Average duration: 6min
+- Total execution time: 0.3 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-core-generation | 2/3 | 6min | 3min |
+| 01-foundation-core-generation | 3/3 | 18min | 6min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3min), 01-02 (3min)
+- Last 5 plans: 01-01 (3min), 01-02 (3min), 01-03 (15min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -51,10 +51,13 @@ Recent decisions affecting current work:
 - [01-02] Accepted pre-existing AI engine and API routes; all meet plan requirements
 - [01-02] AI SDK 6 uses maxOutputTokens (not maxTokens); existing code correct
 - [01-02] API routes pre-wired with auth/credits/rate-limiting from later phases; no conflict
+- [01-03] Auth bypassed at 3 layers (client guard, fetch hook, server requireAuth) for Phase 1 testing
+- [01-03] Credits bypassed in generate route for Phase 1 testing
+- [01-03] Standard mode disabled with Coming Soon badge — only Fast mode active in Phase 1
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
@@ -63,5 +66,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 01-02-PLAN.md
+Stopped at: Phase 1 complete, verified, ready for Phase 2
 Resume file: None

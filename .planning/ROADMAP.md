@@ -12,7 +12,7 @@ This roadmap delivers an AI-powered web app that converts unstructured ideas int
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Core Generation** - Brain dump to FRD pipeline with export, structured output, and responsive UI
+- [x] **Phase 1: Foundation & Core Generation** - Brain dump to FRD pipeline with export, structured output, and responsive UI
 - [ ] **Phase 2: Dual-Mode Input & Gap Detection** - Fast mode gap detection, standard mode guided Q&A, and model tier selection
 - [ ] **Phase 3: Versioning, Iteration & Feedback** - Version history, FRD iteration workflow, version comparison, and rating system
 - [ ] **Phase 4: Authentication & Privacy** - Firebase Auth integration, server-side identity validation, data isolation, and prompt privacy
@@ -33,9 +33,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans in 3 waves
 
 Plans:
-- [ ] 01-01-PLAN.md -- Project bootstrap, tooling configuration, Firestore data layer, and validation schemas
-- [ ] 01-02-PLAN.md -- AI generation engine (FRD schema, prompt composer, Gemini structured output) and API route handlers
-- [ ] 01-03-PLAN.md -- Full UI (project creation, brain dump, generation flow, FRD display, export, responsiveness, accessibility)
+- [x] 01-01-PLAN.md -- Project bootstrap, tooling configuration, Firestore data layer, and validation schemas
+- [x] 01-02-PLAN.md -- AI generation engine (FRD schema, prompt composer, Gemini structured output) and API route handlers
+- [x] 01-03-PLAN.md -- Full UI (project creation, brain dump, generation flow, FRD display, export, responsiveness, accessibility)
 
 ### Phase 2: Dual-Mode Input & Gap Detection
 **Goal**: Users can choose between two input modes -- Fast mode with AI-powered gap detection and targeted follow-ups, or Standard mode with guided Q&A -- and select their preferred Gemini model tier.
@@ -107,7 +107,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Core Generation | 0/3 | Not started | - |
+| 1. Foundation & Core Generation | 3/3 | Complete | 2026-02-12 |
 | 2. Dual-Mode Input & Gap Detection | 0/3 | Not started | - |
 | 3. Versioning, Iteration & Feedback | 0/2 | Not started | - |
 | 4. Authentication & Privacy | 0/2 | Not started | - |
