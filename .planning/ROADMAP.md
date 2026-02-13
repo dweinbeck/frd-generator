@@ -76,11 +76,11 @@ Plans:
   2. A user cannot see, access, or infer any other user's projects, versions, prompts, or ratings
   3. Prompt content (the exact text sent to Gemini) is visible only to the owning user -- no admin endpoints, no builder read paths expose it
   4. Prompt content is sanitized from all server logs, error messages, and analytics payloads (no prompt data appears in Cloud Logging)
-**Plans**: TBD
+**Plans**: 2 plans in 2 waves
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md -- Remove all auth bypasses across server requireAuth, client fetch hook, and page guards
+- [ ] 04-02-PLAN.md -- TDD tests for auth enforcement (401 on unauthenticated), token verification, and privacy audit
 
 ### Phase 5: Monetization, Compliance & Production Readiness
 **Goal**: The app is production-ready with credit-based billing via Stripe, automated 90-day data retention, structured observability, rate limiting, and user consent for AI-generated content.
