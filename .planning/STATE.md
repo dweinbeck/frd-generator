@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-11)
 
 **Core value:** A user can go from an unstructured idea to a Claude Code-ready FRD in under 10 minutes, with the LLM filling gaps and enforcing completeness.
-**Current focus:** Phase 5 in progress — Server-side credit backbone done, continuing monetization
+**Current focus:** Phase 5 in progress — Client-side credit gating done, ready for production readiness
 
 ## Current Position
 
 Phase: 5 of 5 (Monetization, Compliance & Production Readiness)
-Plan: 1 of 3 in current phase (05-01 complete)
+Plan: 2 of 3 in current phase (05-02 complete)
 Status: Executing Phase 5
-Last activity: 2026-02-13 -- Completed 05-01-PLAN.md
+Last activity: 2026-02-13 -- Completed 05-02-PLAN.md
 
-Progress: [##########] 93%
+Progress: [##########] 96%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 4.7min
-- Total execution time: 0.78 hours
+- Total plans completed: 11
+- Average duration: 4.8min
+- Total execution time: 0.88 hours
 
 **By Phase:**
 
@@ -31,10 +31,10 @@ Progress: [##########] 93%
 | 02-dual-mode-input-gap-detection | 2/2 | 9min | 4.5min |
 | 03-versioning-iteration-feedback | 2/2 | 8min | 4min |
 | 04-authentication-privacy | 2/2 | 7min | 3.5min |
-| 05-monetization-compliance-production-readiness | 1/3 | 5min | 5min |
+| 05-monetization-compliance-production-readiness | 2/3 | 12min | 6min |
 
 **Recent Trend:**
-- Last 5 plans: 03-02 (4min), 04-01 (3min), 04-02 (4min), 05-01 (5min)
+- Last 5 plans: 04-01 (3min), 04-02 (4min), 05-01 (5min), 05-02 (7min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -76,6 +76,8 @@ Recent decisions affecting current work:
 - [05-01] creditCost and creditCharged declared outside try block for catch-block access
 - [05-01] BATCH_LIMIT=499 (not 500) to leave room for project doc in final batch
 - [05-01] Refund analytics reuses credits_purchased event type with packageLabel=refund:generation_failed
+- [05-02] Local GENERATION_COST/ITERATION_COST constants (server-only stripe config cannot be imported in client components)
+- [05-02] Credit balance passed as prop from ProjectView to IterationInput (avoids duplicate API calls)
 
 ### Pending Todos
 
@@ -88,5 +90,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 05-01-PLAN.md -- Server-side credit backbone done, continuing Phase 5
+Stopped at: Completed 05-02-PLAN.md -- Client-side credit gating done, ready for 05-03
 Resume file: None
