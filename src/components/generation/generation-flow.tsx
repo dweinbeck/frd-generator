@@ -25,6 +25,8 @@ interface Gap {
 	importance: "high" | "medium" | "low";
 }
 
+const GENERATION_COST = 50;
+
 export function GenerationFlow({ projectId, projectName, mode }: GenerationFlowProps) {
 	const [state, setState] = useState<FlowState>("input");
 	const [markdown, setMarkdown] = useState("");
@@ -52,6 +54,12 @@ export function GenerationFlow({ projectId, projectName, mode }: GenerationFlowP
 	}, [authedFetch]);
 
 	async function handleBrainDumpSubmit(text: string) {
+		if (creditBalance !== null && creditBalance < GENERATION_COST) {
+			setError(
+				"Insufficient credits. You need 50 credits to generate an FRD. Purchase more credits to continue.",
+			);
+			return;
+		}
 		setBrainDump(text);
 		setState("analyzing-gaps");
 		setError("");
@@ -100,6 +108,21 @@ export function GenerationFlow({ projectId, projectName, mode }: GenerationFlowP
 			});
 
 			if (!res.ok) {
+				if (res.status === 402) {
+					const data = await res.json();
+					setError(
+						`Insufficient credits. You have ${data.balance} credits but need ${data.required}. Purchase more credits to continue.`,
+					);
+					setCreditBalance(data.balance);
+					setState("error");
+					return;
+				}
+				if (res.status === 403) {
+					const data = await res.json();
+					setError(data.error || "You must accept the terms of use before generating.");
+					setState("error");
+					return;
+				}
 				const data = await res.json();
 				throw new Error(data.error || "Generation failed");
 			}
@@ -114,6 +137,12 @@ export function GenerationFlow({ projectId, projectName, mode }: GenerationFlowP
 	}
 
 	async function handleStandardSubmit(guidedAnswers: GuidedAnswer[]) {
+		if (creditBalance !== null && creditBalance < GENERATION_COST) {
+			setError(
+				"Insufficient credits. You need 50 credits to generate an FRD. Purchase more credits to continue.",
+			);
+			return;
+		}
 		setState("generating");
 		setError("");
 
@@ -132,6 +161,21 @@ export function GenerationFlow({ projectId, projectName, mode }: GenerationFlowP
 			});
 
 			if (!res.ok) {
+				if (res.status === 402) {
+					const data = await res.json();
+					setError(
+						`Insufficient credits. You have ${data.balance} credits but need ${data.required}. Purchase more credits to continue.`,
+					);
+					setCreditBalance(data.balance);
+					setState("error");
+					return;
+				}
+				if (res.status === 403) {
+					const data = await res.json();
+					setError(data.error || "You must accept the terms of use before generating.");
+					setState("error");
+					return;
+				}
 				const data = await res.json();
 				throw new Error(data.error || "Generation failed");
 			}
@@ -190,12 +234,22 @@ export function GenerationFlow({ projectId, projectName, mode }: GenerationFlowP
 		);
 	}
 
-	// CRED-03: Credit cost notice
+	// CRED-03: Credit cost notice with warning when insufficient
+	const isInsufficientCredits = creditBalance !== null && creditBalance < GENERATION_COST;
 	const creditNotice =
 		creditBalance !== null ? (
-			<div className="rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-700">
-				This generation will cost <span className="font-semibold">50 credits</span>. Your balance:{" "}
+			<div
+				className={`rounded-lg px-3 py-2 text-sm ${
+					isInsufficientCredits
+						? "bg-amber-50 text-amber-700 border border-amber-200"
+						: "bg-blue-50 text-blue-700"
+				}`}
+			>
+				This generation costs <span className="font-semibold">50 credits</span>. Your balance:{" "}
 				<span className="font-semibold">{creditBalance} credits</span>.
+				{isInsufficientCredits && (
+					<span className="block mt-1 font-medium">Purchase more credits to generate.</span>
+				)}
 			</div>
 		) : null;
 
