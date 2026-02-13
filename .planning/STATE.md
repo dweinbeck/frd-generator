@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-11)
 
 **Core value:** A user can go from an unstructured idea to a Claude Code-ready FRD in under 10 minutes, with the LLM filling gaps and enforcing completeness.
-**Current focus:** Phase 3 complete — ready for Phase 4 (Auth, Credits & Consent)
+**Current focus:** Phase 4 in progress — Auth bypass removal complete, data isolation next
 
 ## Current Position
 
-Phase: 3 of 5 (Versioning, Iteration & Feedback) -- COMPLETE
-Plan: 2 of 2 in current phase (all plans complete)
-Status: Phase 3 complete, ready for Phase 4
-Last activity: 2026-02-13 -- Completed 03-02-PLAN.md
+Phase: 4 of 5 (Authentication & Privacy)
+Plan: 1 of 2 in current phase (04-01 complete)
+Status: Executing Phase 4 plans
+Last activity: 2026-02-13 -- Completed 04-01-PLAN.md
 
-Progress: [#######...] 70%
+Progress: [########..] 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 5.1min
-- Total execution time: 0.60 hours
+- Total plans completed: 8
+- Average duration: 4.9min
+- Total execution time: 0.65 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [#######...] 70%
 | 01-foundation-core-generation | 3/3 | 18min | 6min |
 | 02-dual-mode-input-gap-detection | 2/2 | 9min | 4.5min |
 | 03-versioning-iteration-feedback | 2/2 | 8min | 4min |
+| 04-authentication-privacy | 1/2 | 3min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (4min), 02-02 (5min), 03-01 (4min), 03-02 (4min)
-- Trend: stable
+- Last 5 plans: 02-02 (5min), 03-01 (4min), 03-02 (4min), 04-01 (3min)
+- Trend: stable/improving
 
 *Updated after each plan completion*
 
@@ -65,6 +66,8 @@ Recent decisions affecting current work:
 - [03-02] Tests placed in root tests/ directory (not src/__tests__/) to match established project convention
 - [03-02] Iteration mode tests document actual schema behavior (no refine on empty feedback) rather than aspirational behavior
 - [03-02] API route tests mock server-only, auth, and DB layers for isolated unit testing
+- [04-01] Synthetic 401 Response in useAuthedFetch (not throw) for uniform error handling with server 401s
+- [04-01] Auth guard in home page renders null during redirect (consistent with project page pattern)
 
 ### Pending Todos
 
@@ -72,10 +75,10 @@ None.
 
 ### Blockers/Concerns
 
-- Platform-infra Firebase Auth must be ready before Phase 4 begins
+None.
 
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 03-02-PLAN.md -- Phase 3 complete, ready for Phase 4
+Stopped at: Completed 04-01-PLAN.md -- auth bypasses removed, ready for 04-02
 Resume file: None
