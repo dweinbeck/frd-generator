@@ -4,7 +4,8 @@ import { generateFRD } from "@/lib/ai/generation-engine";
 import { composeGenerationPrompt } from "@/lib/ai/prompt-composer";
 import { trackEvent } from "@/lib/analytics";
 import { requireAuth } from "@/lib/auth/require-auth";
-import { chargeCredits } from "@/lib/db/credits";
+import { hasUserConsented } from "@/lib/db/consent";
+import { addCredits, chargeCredits } from "@/lib/db/credits";
 import { getProjectForUser, updateProject } from "@/lib/db/projects";
 import { getVersion, saveVersion } from "@/lib/db/versions";
 import { createLogger } from "@/lib/logger";
@@ -30,6 +31,19 @@ export async function POST(req: Request) {
 		);
 	}
 
+	// DATA-03: Require consent before generation
+	const consented = await hasUserConsented(auth.userId);
+	if (!consented) {
+		return NextResponse.json(
+			{ error: "You must accept the terms of use before generating FRDs." },
+			{ status: 403 },
+		);
+	}
+
+	// Declared outside try for access in catch block (refund on failure)
+	let creditCost = 0;
+	let creditCharged = false;
+
 	try {
 		const body = await req.json();
 		const input = GenerationRequestSchema.parse(body);
@@ -43,19 +57,20 @@ export async function POST(req: Request) {
 		const modelId = input.modelId ?? "gemini-2.5-flash";
 		const isIteration = !!input.parentVersionId;
 
-		// TODO: Phase 5 — re-enable credit charging
-		// const creditCost = isIteration ? CREDIT_COSTS.iteration : CREDIT_COSTS.initial;
-		// const chargeResult = await chargeCredits(auth.userId, creditCost, {
-		// 	projectId: input.projectId,
-		// 	model: modelId,
-		// 	reason: isIteration ? "iteration" : "initial_generation",
-		// });
-		// if (!chargeResult.success) {
-		// 	return NextResponse.json(
-		// 		{ error: "Insufficient credits", balance: chargeResult.balance, required: creditCost },
-		// 		{ status: 402 },
-		// 	);
-		// }
+		// CRED-01: Charge credits before generation
+		creditCost = isIteration ? CREDIT_COSTS.iteration : CREDIT_COSTS.initial;
+		const chargeResult = await chargeCredits(auth.userId, creditCost, {
+			projectId: input.projectId,
+			model: modelId,
+			reason: isIteration ? "iteration" : "initial_generation",
+		});
+		if (!chargeResult.success) {
+			return NextResponse.json(
+				{ error: "Insufficient credits", balance: chargeResult.balance, required: creditCost },
+				{ status: 402 },
+			);
+		}
+		creditCharged = true;
 
 		// OBS-02: Track generation start
 		trackEvent(
@@ -145,18 +160,18 @@ export async function POST(req: Request) {
 			logger.correlationId,
 		);
 
-		// TODO: Phase 5 — re-enable credit tracking
-		// trackEvent(
-		// 	auth.userId,
-		// 	{
-		// 		event: "credits_charged",
-		// 		amount: creditCost,
-		// 		projectId: input.projectId,
-		// 		versionId: version.id,
-		// 		model: modelId,
-		// 	},
-		// 	logger.correlationId,
-		// );
+		// CRED-06: Track credit charge
+		trackEvent(
+			auth.userId,
+			{
+				event: "credits_charged",
+				amount: creditCost,
+				projectId: input.projectId,
+				versionId: version.id,
+				model: modelId,
+			},
+			logger.correlationId,
+		);
 
 		if (isIteration) {
 			trackEvent(
@@ -182,6 +197,47 @@ export async function POST(req: Request) {
 				{ status: 400 },
 			);
 		}
+
+		// Refund credits if they were charged but generation failed
+		if (creditCharged) {
+			try {
+				await addCredits(
+					auth.userId,
+					creditCost,
+					{
+						reason: "generation_failed_refund",
+					},
+					"refund",
+				);
+				trackEvent(
+					auth.userId,
+					{
+						event: "credits_purchased",
+						amount: creditCost,
+						packageLabel: "refund:generation_failed",
+					},
+					logger.correlationId,
+				);
+			} catch (refundError) {
+				logger.error("Credit refund failed", {
+					userId: auth.userId,
+					action: "credit_refund_failed",
+					metadata: { error: refundError instanceof Error ? refundError.message : "Unknown" },
+				});
+			}
+		}
+
+		// OBS-02: Track generation failure
+		trackEvent(
+			auth.userId,
+			{
+				event: "frd_generation_failed",
+				projectId: "unknown",
+				model: "unknown",
+				errorType: error instanceof Error ? error.name : "Unknown",
+			},
+			logger.correlationId,
+		);
 
 		// AUTH-06: Never log brain dump, prompt, or FRD content
 		logger.error("Generation failed", {

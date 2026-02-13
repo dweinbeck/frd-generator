@@ -5,7 +5,7 @@ import { getDb } from "./admin";
 interface CreditTransaction {
 	userId: string;
 	amount: number;
-	type: "purchase" | "charge";
+	type: "purchase" | "charge" | "refund";
 	metadata: {
 		projectId?: string;
 		versionId?: string;
@@ -14,6 +14,8 @@ interface CreditTransaction {
 		reason?: string;
 	};
 }
+
+type CreditTransactionType = CreditTransaction["type"];
 
 export async function getCredits(userId: string): Promise<number> {
 	const db = getDb();
@@ -30,6 +32,7 @@ export async function addCredits(
 	userId: string,
 	amount: number,
 	metadata: CreditTransaction["metadata"],
+	type: CreditTransactionType = "purchase",
 ): Promise<number> {
 	const db = getDb();
 	const creditRef = db.collection("credits").doc(userId);
@@ -50,7 +53,7 @@ export async function addCredits(
 		tx.set(txRef, {
 			userId,
 			amount,
-			type: "purchase",
+			type,
 			balanceAfter: newBalance,
 			metadata,
 			createdAt: FieldValue.serverTimestamp(),
