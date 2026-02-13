@@ -1,9 +1,15 @@
 "use client";
 
 import { clsx } from "clsx";
+import { formatDistanceToNow } from "date-fns";
 import { Clock, GitBranch, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuthedFetch } from "@/hooks/use-authed-fetch";
+
+function formatTimestamp(createdAt: string | null): string {
+	if (!createdAt) return "";
+	return formatDistanceToNow(new Date(createdAt), { addSuffix: true });
+}
 
 interface VersionSummary {
 	id: string;
@@ -12,7 +18,7 @@ interface VersionSummary {
 	model: string;
 	rating?: number;
 	parentVersionId?: string;
-	createdAt: unknown;
+	createdAt: string | null;
 }
 
 interface VersionListProps {
@@ -82,6 +88,7 @@ export function VersionList({ projectId, activeVersionId, onSelect }: VersionLis
 							</span>
 						)}
 						<Clock className="h-3 w-3 text-gray-400" />
+						<span className="text-xs text-gray-400">{formatTimestamp(v.createdAt)}</span>
 					</div>
 				</button>
 			))}

@@ -19,7 +19,14 @@ export async function GET(req: Request, { params }: { params: Promise<{ projectI
 		const versions = await getAllVersions(projectId);
 
 		// Strip composedPrompt from list view (AUTH-05: only visible on individual version)
-		const sanitized = versions.map(({ composedPrompt: _prompt, ...rest }) => rest);
+		// Convert Firestore Timestamps to ISO strings for frontend consumption
+		const sanitized = versions.map(({ composedPrompt: _prompt, createdAt, ...rest }) => ({
+			...rest,
+			createdAt:
+				createdAt && typeof createdAt === "object" && "toDate" in createdAt
+					? (createdAt as { toDate(): Date }).toDate().toISOString()
+					: null,
+		}));
 
 		return NextResponse.json({ versions: sanitized });
 	} catch {

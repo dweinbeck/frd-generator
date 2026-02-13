@@ -1,5 +1,5 @@
 import "server-only";
-import { FieldValue } from "firebase-admin/firestore";
+import { FieldValue, type Timestamp } from "firebase-admin/firestore";
 import { nanoid } from "nanoid";
 import { getDb } from "./admin";
 
@@ -22,7 +22,7 @@ export interface VersionData {
 export interface StoredVersion extends VersionData {
 	id: string;
 	rating?: number;
-	createdAt: unknown;
+	createdAt: Timestamp | null;
 }
 
 export async function saveVersion(projectId: string, data: VersionData): Promise<{ id: string }> {
@@ -51,7 +51,10 @@ export async function getVersion(
 		.get();
 
 	if (!doc.exists) return null;
-	return { id: doc.id, ...(doc.data() as VersionData & { rating?: number; createdAt: unknown }) };
+	return {
+		id: doc.id,
+		...(doc.data() as VersionData & { rating?: number; createdAt: Timestamp | null }),
+	};
 }
 
 export async function getAllVersions(projectId: string): Promise<StoredVersion[]> {
@@ -65,7 +68,7 @@ export async function getAllVersions(projectId: string): Promise<StoredVersion[]
 
 	return snapshot.docs.map((doc) => ({
 		id: doc.id,
-		...(doc.data() as VersionData & { rating?: number; createdAt: unknown }),
+		...(doc.data() as VersionData & { rating?: number; createdAt: Timestamp | null }),
 	}));
 }
 
@@ -82,7 +85,10 @@ export async function getLatestVersion(projectId: string): Promise<StoredVersion
 	if (versions.empty) return null;
 
 	const doc = versions.docs[0];
-	return { id: doc.id, ...(doc.data() as VersionData & { rating?: number; createdAt: unknown }) };
+	return {
+		id: doc.id,
+		...(doc.data() as VersionData & { rating?: number; createdAt: Timestamp | null }),
+	};
 }
 
 export async function updateVersionRating(

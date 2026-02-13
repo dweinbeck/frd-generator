@@ -27,7 +27,17 @@ export async function GET(
 
 		// AUTH-05: composedPrompt is only returned to the owning user
 		// (already verified via getProjectForUser above)
-		return NextResponse.json({ version });
+		// Convert Firestore Timestamp to ISO string for frontend consumption
+		const { createdAt, ...rest } = version;
+		const serializedVersion = {
+			...rest,
+			createdAt:
+				createdAt && typeof createdAt === "object" && "toDate" in createdAt
+					? (createdAt as { toDate(): Date }).toDate().toISOString()
+					: null,
+		};
+
+		return NextResponse.json({ version: serializedVersion });
 	} catch {
 		return NextResponse.json({ error: "Failed to fetch version" }, { status: 500 });
 	}
