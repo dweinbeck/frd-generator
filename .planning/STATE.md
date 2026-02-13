@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-11)
 
 **Core value:** A user can go from an unstructured idea to a Claude Code-ready FRD in under 10 minutes, with the LLM filling gaps and enforcing completeness.
-**Current focus:** Phase 4 in progress — Auth bypass removal complete, data isolation next
+**Current focus:** Phase 4 complete — Auth enforcement + privacy tests done, ready for Phase 5
 
 ## Current Position
 
-Phase: 4 of 5 (Authentication & Privacy)
-Plan: 1 of 2 in current phase (04-01 complete)
-Status: Executing Phase 4 plans
-Last activity: 2026-02-13 -- Completed 04-01-PLAN.md
+Phase: 4 of 5 (Authentication & Privacy) -- COMPLETE
+Plan: 2 of 2 in current phase (04-02 complete)
+Status: Phase 4 complete, ready for Phase 5
+Last activity: 2026-02-13 -- Completed 04-02-PLAN.md
 
-Progress: [########..] 80%
+Progress: [#########.] 90%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 4.9min
-- Total execution time: 0.65 hours
+- Total plans completed: 9
+- Average duration: 4.8min
+- Total execution time: 0.72 hours
 
 **By Phase:**
 
@@ -30,10 +30,10 @@ Progress: [########..] 80%
 | 01-foundation-core-generation | 3/3 | 18min | 6min |
 | 02-dual-mode-input-gap-detection | 2/2 | 9min | 4.5min |
 | 03-versioning-iteration-feedback | 2/2 | 8min | 4min |
-| 04-authentication-privacy | 1/2 | 3min | 3min |
+| 04-authentication-privacy | 2/2 | 7min | 3.5min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (5min), 03-01 (4min), 03-02 (4min), 04-01 (3min)
+- Last 5 plans: 03-01 (4min), 03-02 (4min), 04-01 (3min), 04-02 (4min)
 - Trend: stable/improving
 
 *Updated after each plan completion*
@@ -68,6 +68,9 @@ Recent decisions affecting current work:
 - [03-02] API route tests mock server-only, auth, and DB layers for isolated unit testing
 - [04-01] Synthetic 401 Response in useAuthedFetch (not throw) for uniform error handling with server 401s
 - [04-01] Auth guard in home page renders null during redirect (consistent with project page pattern)
+- [04-02] Post-implementation TDD: tests verify existing correct code as regression guards
+- [04-02] Tests placed in root tests/ directory per established project convention
+- [04-02] Analytics type check is structural/documentary rather than runtime assertion
 
 ### Pending Todos
 
@@ -80,5 +83,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 04-01-PLAN.md -- auth bypasses removed, ready for 04-02
+Stopped at: Completed 04-02-PLAN.md -- Phase 4 complete, ready for Phase 5
 Resume file: None
