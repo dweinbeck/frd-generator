@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-11)
 
 **Core value:** A user can go from an unstructured idea to a Claude Code-ready FRD in under 10 minutes, with the LLM filling gaps and enforcing completeness.
-**Current focus:** Phase 3 in progress — Versioning, Iteration & Feedback
+**Current focus:** Phase 3 complete — ready for Phase 4 (Auth, Credits & Consent)
 
 ## Current Position
 
-Phase: 3 of 5 (Versioning, Iteration & Feedback)
-Plan: 1 of 2 in current phase
-Status: Completed 03-01-PLAN.md, ready for 03-02
-Last activity: 2026-02-12 -- Completed 03-01-PLAN.md
+Phase: 3 of 5 (Versioning, Iteration & Feedback) -- COMPLETE
+Plan: 2 of 2 in current phase (all plans complete)
+Status: Phase 3 complete, ready for Phase 4
+Last activity: 2026-02-13 -- Completed 03-02-PLAN.md
 
-Progress: [######....] 60%
+Progress: [#######...] 70%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 5.5min
-- Total execution time: 0.55 hours
+- Total plans completed: 7
+- Average duration: 5.1min
+- Total execution time: 0.60 hours
 
 **By Phase:**
 
@@ -29,10 +29,10 @@ Progress: [######....] 60%
 |-------|-------|-------|----------|
 | 01-foundation-core-generation | 3/3 | 18min | 6min |
 | 02-dual-mode-input-gap-detection | 2/2 | 9min | 4.5min |
-| 03-versioning-iteration-feedback | 1/2 | 4min | 4min |
+| 03-versioning-iteration-feedback | 2/2 | 8min | 4min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (15min), 02-01 (4min), 02-02 (5min), 03-01 (4min)
+- Last 5 plans: 02-01 (4min), 02-02 (5min), 03-01 (4min), 03-02 (4min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -62,6 +62,9 @@ Recent decisions affecting current work:
 - [03-01] versionListKey state + React key prop for VersionList re-mount refresh (simpler than callback-based)
 - [03-01] Dynamic import for react-diff-viewer-continued with ssr:false to avoid hydration issues
 - [03-01] StoredVersion.createdAt typed as Timestamp | null; Firestore Timestamps converted to ISO strings in API layer
+- [03-02] Tests placed in root tests/ directory (not src/__tests__/) to match established project convention
+- [03-02] Iteration mode tests document actual schema behavior (no refine on empty feedback) rather than aspirational behavior
+- [03-02] API route tests mock server-only, auth, and DB layers for isolated unit testing
 
 ### Pending Todos
 
@@ -73,6 +76,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-12
-Stopped at: Completed 03-01-PLAN.md, ready for 03-02
+Last session: 2026-02-13
+Stopped at: Completed 03-02-PLAN.md -- Phase 3 complete, ready for Phase 4
 Resume file: None
