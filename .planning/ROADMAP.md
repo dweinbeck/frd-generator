@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Core Generation** - Brain dump to FRD pipeline with export, structured output, and responsive UI
 - [x] **Phase 2: Dual-Mode Input & Gap Detection** - Fast mode gap detection, standard mode guided Q&A, and model tier selection
-- [ ] **Phase 3: Versioning, Iteration & Feedback** - Version history, FRD iteration workflow, version comparison, and rating system
+- [x] **Phase 3: Versioning, Iteration & Feedback** - Version history, FRD iteration workflow, version comparison, and rating system
 - [ ] **Phase 4: Authentication & Privacy** - Firebase Auth integration, server-side identity validation, data isolation, and prompt privacy
 - [ ] **Phase 5: Monetization, Compliance & Production Readiness** - Stripe credit system, 90-day data retention, observability, and rate limiting
 
@@ -64,8 +64,8 @@ Plans:
 **Plans**: 2 plans in 2 waves
 
 Plans:
-- [ ] 03-01-PLAN.md -- Timestamp serialization, version list timestamps, diff-highlighted compare view, version picker, state-based iteration refresh
-- [ ] 03-02-PLAN.md -- TDD tests for validation schemas (rating, generation iteration) and version list API response shape
+- [x] 03-01-PLAN.md -- Timestamp serialization, version list timestamps, diff-highlighted compare view, version picker, state-based iteration refresh
+- [x] 03-02-PLAN.md -- TDD tests for validation schemas (rating, generation iteration) and version list API response shape
 
 ### Phase 4: Authentication & Privacy
 **Goal**: Users securely access the app through Firebase Auth with server-side identity validation, complete data isolation between users, and guaranteed prompt privacy (no admin access to user prompts).
@@ -108,6 +108,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 |-------|----------------|--------|-----------|
 | 1. Foundation & Core Generation | 3/3 | Complete | 2026-02-12 |
 | 2. Dual-Mode Input & Gap Detection | 2/2 | Complete | 2026-02-12 |
-| 3. Versioning, Iteration & Feedback | 0/2 | Not started | - |
+| 3. Versioning, Iteration & Feedback | 2/2 | Complete | 2026-02-12 |
 | 4. Authentication & Privacy | 0/2 | Not started | - |
 | 5. Monetization, Compliance & Production Readiness | 0/3 | Not started | - |
