@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Dual-Mode Input & Gap Detection** - Fast mode gap detection, standard mode guided Q&A, and model tier selection
 - [x] **Phase 3: Versioning, Iteration & Feedback** - Version history, FRD iteration workflow, version comparison, and rating system
 - [x] **Phase 4: Authentication & Privacy** - Firebase Auth integration, server-side identity validation, data isolation, and prompt privacy
-- [ ] **Phase 5: Monetization, Compliance & Production Readiness** - Stripe credit system, 90-day data retention, observability, and rate limiting
+- [x] **Phase 5: Monetization, Compliance & Production Readiness** - Stripe credit system, 90-day data retention, observability, and rate limiting
 
 ## Phase Details
 
@@ -95,9 +95,9 @@ Plans:
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 05-01-PLAN.md -- Server-side credit charging activation, consent enforcement, refund on failure, webhook idempotency, retention batch chunking
-- [ ] 05-02-PLAN.md -- Client-side credit gating in GenerationFlow and IterationInput, 402/403 handling, credit cost display
-- [ ] 05-03-PLAN.md -- Comprehensive tests for credits, webhook idempotency, retention chunking, consent, and client credit gating
+- [x] 05-01-PLAN.md -- Server-side credit charging activation, consent enforcement, refund on failure, webhook idempotency, retention batch chunking
+- [x] 05-02-PLAN.md -- Client-side credit gating in GenerationFlow and IterationInput, 402/403 handling, credit cost display
+- [x] 05-03-PLAN.md -- Comprehensive tests for credits, webhook idempotency, retention chunking, consent, and client credit gating
 
 ## Progress
 
@@ -110,4 +110,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 2. Dual-Mode Input & Gap Detection | 2/2 | Complete | 2026-02-12 |
 | 3. Versioning, Iteration & Feedback | 2/2 | Complete | 2026-02-12 |
 | 4. Authentication & Privacy | 2/2 | Complete | 2026-02-12 |
-| 5. Monetization, Compliance & Production Readiness | 0/3 | Not started | - |
+| 5. Monetization, Compliance & Production Readiness | 3/3 | Complete | 2026-02-12 |
