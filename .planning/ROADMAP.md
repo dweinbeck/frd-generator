@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation & Core Generation** - Brain dump to FRD pipeline with export, structured output, and responsive UI
 - [x] **Phase 2: Dual-Mode Input & Gap Detection** - Fast mode gap detection, standard mode guided Q&A, and model tier selection
 - [x] **Phase 3: Versioning, Iteration & Feedback** - Version history, FRD iteration workflow, version comparison, and rating system
-- [ ] **Phase 4: Authentication & Privacy** - Firebase Auth integration, server-side identity validation, data isolation, and prompt privacy
+- [x] **Phase 4: Authentication & Privacy** - Firebase Auth integration, server-side identity validation, data isolation, and prompt privacy
 - [ ] **Phase 5: Monetization, Compliance & Production Readiness** - Stripe credit system, 90-day data retention, observability, and rate limiting
 
 ## Phase Details
@@ -79,8 +79,8 @@ Plans:
 **Plans**: 2 plans in 2 waves
 
 Plans:
-- [ ] 04-01-PLAN.md -- Remove all auth bypasses across server requireAuth, client fetch hook, and page guards
-- [ ] 04-02-PLAN.md -- TDD tests for auth enforcement (401 on unauthenticated), token verification, and privacy audit
+- [x] 04-01-PLAN.md -- Remove all auth bypasses across server requireAuth, client fetch hook, and page guards
+- [x] 04-02-PLAN.md -- TDD tests for auth enforcement (401 on unauthenticated), token verification, and privacy audit
 
 ### Phase 5: Monetization, Compliance & Production Readiness
 **Goal**: The app is production-ready with credit-based billing via Stripe, automated 90-day data retention, structured observability, rate limiting, and user consent for AI-generated content.
@@ -109,5 +109,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 1. Foundation & Core Generation | 3/3 | Complete | 2026-02-12 |
 | 2. Dual-Mode Input & Gap Detection | 2/2 | Complete | 2026-02-12 |
 | 3. Versioning, Iteration & Feedback | 2/2 | Complete | 2026-02-12 |
-| 4. Authentication & Privacy | 0/2 | Not started | - |
+| 4. Authentication & Privacy | 2/2 | Complete | 2026-02-12 |
 | 5. Monetization, Compliance & Production Readiness | 0/3 | Not started | - |
