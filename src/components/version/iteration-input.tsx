@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { useAuthedFetch } from "@/hooks/use-authed-fetch";
 
+const ITERATION_COST = 25;
+
 interface IterationInputProps {
 	projectId: string;
 	projectName: string;
 	parentVersionId: string;
 	modelId: string;
+	creditBalance: number | null;
 	onComplete: (markdown: string, versionId: string) => void;
 	onCancel: () => void;
 }
@@ -17,6 +20,7 @@ export function IterationInput({
 	projectName,
 	parentVersionId,
 	modelId,
+	creditBalance,
 	onComplete,
 	onCancel,
 }: IterationInputProps) {
@@ -28,6 +32,12 @@ export function IterationInput({
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		if (!feedback.trim()) return;
+		if (creditBalance !== null && creditBalance < ITERATION_COST) {
+			setError(
+				"Insufficient credits. You need 25 credits for an iteration. Purchase more credits to continue.",
+			);
+			return;
+		}
 
 		setIsSubmitting(true);
 		setError("");
@@ -48,6 +58,20 @@ export function IterationInput({
 			});
 
 			if (!res.ok) {
+				if (res.status === 402) {
+					const data = await res.json();
+					setError(
+						`Insufficient credits. You have ${data.balance} credits but need ${data.required}. Purchase more credits to continue.`,
+					);
+					setIsSubmitting(false);
+					return;
+				}
+				if (res.status === 403) {
+					const data = await res.json();
+					setError(data.error || "You must accept the terms of use first.");
+					setIsSubmitting(false);
+					return;
+				}
 				const data = await res.json();
 				throw new Error(data.error || "Iteration failed");
 			}
@@ -83,6 +107,23 @@ export function IterationInput({
 				/>
 			</div>
 
+			{/* CRED-03: Show iteration cost */}
+			{creditBalance !== null && (
+				<div
+					className={`rounded-lg px-3 py-2 text-sm ${
+						creditBalance < ITERATION_COST
+							? "bg-amber-50 text-amber-700 border border-amber-200"
+							: "bg-blue-50 text-blue-700"
+					}`}
+				>
+					This iteration costs <span className="font-semibold">25 credits</span>. Your balance:{" "}
+					<span className="font-semibold">{creditBalance} credits</span>.
+					{creditBalance < ITERATION_COST && (
+						<span className="block mt-1 font-medium">Purchase more credits to iterate.</span>
+					)}
+				</div>
+			)}
+
 			{error && (
 				<div role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
 					{error}
@@ -99,7 +140,11 @@ export function IterationInput({
 				</button>
 				<button
 					type="submit"
-					disabled={isSubmitting || !feedback.trim()}
+					disabled={
+						isSubmitting ||
+						!feedback.trim() ||
+						(creditBalance !== null && creditBalance < ITERATION_COST)
+					}
 					className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 				>
 					{isSubmitting ? "Iterating..." : "Iterate FRD"}

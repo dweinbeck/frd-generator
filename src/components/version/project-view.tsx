@@ -46,6 +46,7 @@ export function ProjectView({
 	const [loading, setLoading] = useState(false);
 	const [versionListKey, setVersionListKey] = useState(0);
 	const [versions, setVersions] = useState<VersionSummary[]>([]);
+	const [creditBalance, setCreditBalance] = useState<number | null>(null);
 	const authedFetch = useAuthedFetch();
 
 	// Fetch versions list for the compare picker
@@ -65,6 +66,22 @@ export function ProjectView({
 		}
 		fetchVersions();
 	}, [projectId, authedFetch, versionListKey]);
+
+	// CRED-03: Fetch credit balance for iteration cost display
+	useEffect(() => {
+		async function fetchBalance() {
+			try {
+				const res = await authedFetch("/api/credits");
+				if (res.ok) {
+					const data = await res.json();
+					setCreditBalance(data.balance);
+				}
+			} catch {
+				// Non-critical
+			}
+		}
+		fetchBalance();
+	}, [authedFetch]);
 
 	async function handleVersionSelect(versionId: string) {
 		setLoading(true);
@@ -110,6 +127,12 @@ export function ProjectView({
 		setRating(undefined);
 		setViewMode("view");
 		setVersionListKey((prev) => prev + 1);
+		// Refresh credit balance after iteration
+		authedFetch("/api/credits")
+			.then((res) => {
+				if (res.ok) res.json().then((data) => setCreditBalance(data.balance));
+			})
+			.catch(() => {});
 	}
 
 	// Get versions available for comparison (all except active)
@@ -214,6 +237,7 @@ export function ProjectView({
 						projectName={projectName}
 						parentVersionId={activeVersionId}
 						modelId="gemini-2.5-flash"
+						creditBalance={creditBalance}
 						onComplete={handleIterationComplete}
 						onCancel={() => setViewMode("view")}
 					/>
