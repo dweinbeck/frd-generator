@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-11)
 
 **Core value:** A user can go from an unstructured idea to a Claude Code-ready FRD in under 10 minutes, with the LLM filling gaps and enforcing completeness.
-**Current focus:** Phase 2 complete — Dual-Mode Input & Gap Detection
+**Current focus:** Phase 3 in progress — Versioning, Iteration & Feedback
 
 ## Current Position
 
-Phase: 2 of 5 (Dual-Mode Input & Gap Detection)
-Plan: 2 of 2 in current phase
-Status: Phase 02 complete, ready for Phase 03
-Last activity: 2026-02-12 -- Completed 02-02-PLAN.md
+Phase: 3 of 5 (Versioning, Iteration & Feedback)
+Plan: 1 of 2 in current phase
+Status: Completed 03-01-PLAN.md, ready for 03-02
+Last activity: 2026-02-12 -- Completed 03-01-PLAN.md
 
-Progress: [######....] 40%
+Progress: [######....] 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 6min
-- Total execution time: 0.5 hours
+- Total plans completed: 6
+- Average duration: 5.5min
+- Total execution time: 0.55 hours
 
 **By Phase:**
 
@@ -29,9 +29,10 @@ Progress: [######....] 40%
 |-------|-------|-------|----------|
 | 01-foundation-core-generation | 3/3 | 18min | 6min |
 | 02-dual-mode-input-gap-detection | 2/2 | 9min | 4.5min |
+| 03-versioning-iteration-feedback | 1/2 | 4min | 4min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (3min), 01-03 (15min), 02-01 (4min), 02-02 (5min)
+- Last 5 plans: 01-03 (15min), 02-01 (4min), 02-02 (5min), 03-01 (4min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -58,6 +59,9 @@ Recent decisions affecting current work:
 - [02-01] Used .refine() for conditional brainDump validation (safe for API input, not Gemini structured output)
 - [02-01] Minimum-answer warning is non-blocking with escape hatch to preserve user autonomy (STND-02)
 - [02-02] Min-answer warning unreachable via normal UI (4 required questions guarantee >= 4 answers); tested indirectly
+- [03-01] versionListKey state + React key prop for VersionList re-mount refresh (simpler than callback-based)
+- [03-01] Dynamic import for react-diff-viewer-continued with ssr:false to avoid hydration issues
+- [03-01] StoredVersion.createdAt typed as Timestamp | null; Firestore Timestamps converted to ISO strings in API layer
 
 ### Pending Todos
 
@@ -70,5 +74,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 02-02-PLAN.md, Phase 02 complete, ready for Phase 03
+Stopped at: Completed 03-01-PLAN.md, ready for 03-02
 Resume file: None
