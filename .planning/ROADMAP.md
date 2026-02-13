@@ -92,12 +92,12 @@ Plans:
   3. All project data (projects, versions, prompts, ratings) is automatically deleted after 90 days with no orphaned subcollections remaining
   4. User sees and accepts terms/consent for AI-generated output and data retention before first use
   5. All key user actions are tracked via analytics events, structured logs include correlation IDs, and generation endpoints enforce rate limits that block abuse
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
-- [ ] 05-03: TBD
+- [ ] 05-01-PLAN.md -- Server-side credit charging activation, consent enforcement, refund on failure, webhook idempotency, retention batch chunking
+- [ ] 05-02-PLAN.md -- Client-side credit gating in GenerationFlow and IterationInput, 402/403 handling, credit cost display
+- [ ] 05-03-PLAN.md -- Comprehensive tests for credits, webhook idempotency, retention chunking, consent, and client credit gating
 
 ## Progress
 
