@@ -26,8 +26,7 @@ interface VersionData {
 export default function ProjectPage() {
 	const params = useParams<{ projectId: string }>();
 	const router = useRouter();
-	// TODO: Phase 4 — restore user from useAuth
-	const { loading: authLoading } = useAuth();
+	const { user, loading: authLoading } = useAuth();
 	const authedFetch = useAuthedFetch();
 	const [project, setProject] = useState<ProjectData | null>(null);
 	const [latestVersion, setLatestVersion] = useState<VersionData | null>(null);
@@ -36,11 +35,10 @@ export default function ProjectPage() {
 
 	useEffect(() => {
 		if (authLoading) return;
-		// TODO: Phase 4 — re-enable auth guard
-		// if (!user) {
-		// 	router.push("/sign-in");
-		// 	return;
-		// }
+		if (!user) {
+			router.push("/sign-in");
+			return;
+		}
 
 		async function fetchProject() {
 			try {
@@ -63,8 +61,7 @@ export default function ProjectPage() {
 			}
 		}
 		fetchProject();
-		// TODO: Phase 4 — add user back to dependency array
-	}, [params.projectId, authLoading, authedFetch, router]);
+	}, [params.projectId, authLoading, authedFetch, router, user]);
 
 	if (authLoading || loading) {
 		return (
