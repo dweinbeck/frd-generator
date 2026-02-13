@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { trackEvent } from "@/lib/analytics";
+import { getDb } from "@/lib/db/admin";
 import { addCredits } from "@/lib/db/credits";
 import { createLogger } from "@/lib/logger";
 import { getStripe } from "@/lib/stripe/config";
@@ -31,6 +32,21 @@ export async function POST(req: Request) {
 			const packageLabel = session.metadata?.packageLabel ?? "";
 
 			if (userId && credits > 0) {
+				// Check for duplicate webhook delivery (idempotency)
+				const db = getDb();
+				const existingTx = await db
+					.collection("credit_transactions")
+					.where("metadata.stripeSessionId", "==", session.id)
+					.limit(1)
+					.get();
+
+				if (!existingTx.empty) {
+					logger.info("Duplicate Stripe webhook, skipping credit addition", {
+						metadata: { sessionId: session.id, userId },
+					});
+					return NextResponse.json({ received: true });
+				}
+
 				await addCredits(userId, credits, {
 					stripeSessionId: session.id,
 					reason: "purchase",
