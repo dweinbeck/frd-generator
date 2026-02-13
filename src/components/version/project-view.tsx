@@ -1,7 +1,7 @@
 "use client";
 
 import { Eye, GitCompare, MessageSquare } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FrdDisplay } from "@/components/generation/frd-display";
 import { GenerationProgress } from "@/components/generation/generation-progress";
 import { useAuthedFetch } from "@/hooks/use-authed-fetch";
@@ -12,6 +12,11 @@ import { VersionCompare } from "./version-compare";
 import { VersionList } from "./version-list";
 
 type ViewMode = "view" | "iterate" | "compare" | "prompt";
+
+interface VersionSummary {
+	id: string;
+	versionNumber: number;
+}
 
 interface ProjectViewProps {
 	projectId: string;
@@ -36,9 +41,30 @@ export function ProjectView({
 	const [viewMode, setViewMode] = useState<ViewMode>("view");
 	const [compareMarkdown, setCompareMarkdown] = useState("");
 	const [compareLabel, setCompareLabel] = useState("");
+	const [compareTargetId, setCompareTargetId] = useState("");
 	const [promptText, setPromptText] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [versionListKey, setVersionListKey] = useState(0);
+	const [versions, setVersions] = useState<VersionSummary[]>([]);
 	const authedFetch = useAuthedFetch();
+
+	// Fetch versions list for the compare picker
+	// biome-ignore lint/correctness/useExhaustiveDependencies: versionListKey triggers re-fetch after iteration
+	useEffect(() => {
+		async function fetchVersions() {
+			const res = await authedFetch(`/api/projects/${projectId}/versions`);
+			if (res.ok) {
+				const data = await res.json();
+				setVersions(
+					data.versions.map((v: { id: string; versionNumber: number }) => ({
+						id: v.id,
+						versionNumber: v.versionNumber,
+					})),
+				);
+			}
+		}
+		fetchVersions();
+	}, [projectId, authedFetch, versionListKey]);
 
 	async function handleVersionSelect(versionId: string) {
 		setLoading(true);
@@ -56,15 +82,18 @@ export function ProjectView({
 		}
 	}
 
-	async function handleCompare(versionId: string) {
-		const res = await authedFetch(`/api/projects/${projectId}/versions/${versionId}`);
-		if (res.ok) {
-			const data = await res.json();
-			setCompareMarkdown(data.version.content);
-			setCompareLabel(`v${data.version.versionNumber}`);
-			setViewMode("compare");
-		}
-	}
+	const handleCompare = useCallback(
+		async (versionId: string) => {
+			const res = await authedFetch(`/api/projects/${projectId}/versions/${versionId}`);
+			if (res.ok) {
+				const data = await res.json();
+				setCompareMarkdown(data.version.content);
+				setCompareLabel(`v${data.version.versionNumber}`);
+				setCompareTargetId(versionId);
+			}
+		},
+		[authedFetch, projectId],
+	);
 
 	async function handleViewPrompt() {
 		const res = await authedFetch(`/api/projects/${projectId}/versions/${activeVersionId}`);
@@ -75,11 +104,25 @@ export function ProjectView({
 		}
 	}
 
-	function handleIterationComplete(newMarkdown: string, _newVersionId: string) {
+	function handleIterationComplete(newMarkdown: string, newVersionId: string) {
+		setActiveVersionId(newVersionId);
 		setMarkdown(newMarkdown);
+		setRating(undefined);
 		setViewMode("view");
-		// Refresh will show the new version
-		window.location.reload();
+		setVersionListKey((prev) => prev + 1);
+	}
+
+	// Get versions available for comparison (all except active)
+	const compareVersions = versions.filter((v) => v.id !== activeVersionId);
+
+	// When entering compare mode, auto-load the first available compare target
+	function handleEnterCompare() {
+		setViewMode("compare");
+		const defaultTarget =
+			compareVersions.find((v) => v.id === initialVersionId) || compareVersions[0];
+		if (defaultTarget) {
+			handleCompare(defaultTarget.id);
+		}
 	}
 
 	if (loading) {
@@ -91,6 +134,7 @@ export function ProjectView({
 			{/* Sidebar: version history */}
 			<aside className="w-full lg:w-64 flex-shrink-0">
 				<VersionList
+					key={versionListKey}
 					projectId={projectId}
 					activeVersionId={activeVersionId}
 					onSelect={handleVersionSelect}
@@ -139,15 +183,13 @@ export function ProjectView({
 					</button>
 					<button
 						type="button"
-						onClick={() => {
-							// Find a version to compare with
-							handleCompare(initialVersionId);
-						}}
+						onClick={handleEnterCompare}
+						disabled={compareVersions.length === 0}
 						className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
 							viewMode === "compare"
 								? "bg-primary text-white"
 								: "bg-gray-100 text-gray-700 hover:bg-gray-200"
-						}`}
+						} ${compareVersions.length === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
 					>
 						<GitCompare className="h-4 w-4" />
 						Compare
@@ -197,6 +239,24 @@ export function ProjectView({
 
 				{viewMode === "compare" && (
 					<div className="flex flex-col gap-4">
+						{/* Version picker for compare target */}
+						<div className="flex items-center gap-3">
+							<label htmlFor="compare-target" className="text-sm font-medium text-gray-700">
+								Compare against:
+							</label>
+							<select
+								id="compare-target"
+								value={compareTargetId}
+								onChange={(e) => handleCompare(e.target.value)}
+								className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+							>
+								{compareVersions.map((v) => (
+									<option key={v.id} value={v.id}>
+										v{v.versionNumber}
+									</option>
+								))}
+							</select>
+						</div>
 						<VersionCompare
 							leftMarkdown={compareMarkdown}
 							rightMarkdown={markdown}
