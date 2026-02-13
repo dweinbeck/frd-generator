@@ -61,11 +61,11 @@ Plans:
   3. User can compare two versions side-by-side to see what changed across iterations
   4. After any generation completes, user can submit a half-star rating (0.5 to 5.0) and the rating is stored against that specific version
   5. User can view the exact composed prompt that was sent to Gemini for any version they own
-**Plans**: TBD
+**Plans**: 2 plans in 2 waves
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md -- Timestamp serialization, version list timestamps, diff-highlighted compare view, version picker, state-based iteration refresh
+- [ ] 03-02-PLAN.md -- TDD tests for validation schemas (rating, generation iteration) and version list API response shape
 
 ### Phase 4: Authentication & Privacy
 **Goal**: Users securely access the app through Firebase Auth with server-side identity validation, complete data isolation between users, and guaranteed prompt privacy (no admin access to user prompts).
